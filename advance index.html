@@ -2,10 +2,9 @@
 <html>
 <head>
     <title>Lunchpad</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <link href="css/bootstrap-social.css" rel="stylesheet" >
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
     <style type="text/css">
      *{
      	margin:0%;
@@ -714,12 +713,17 @@ $(document).ready(function() {
      }
   });
   $('.btnn_ok').click(function() {
+	  
   	$('.progress').show()
+	  
     callback();
+	  
+	  
   });
 
 
   callback = function() {
+	  
 		if (i <= 16) {
             activities(i);
             $('.msg1').text('Working Please Wait.. '+i*6.2+'%');
@@ -729,10 +733,12 @@ $(document).ready(function() {
 		} else if(i > 16) {
 			report(i);  
 		}
+	  
   }
   
   activities  = function(i) {
-		   $f = $("#"+"fil"+i);///file
+	  
+$f = $("#"+"fil"+i);///file
            $k = $("#"+"inp"+i).val();//key
            if ($f.length >= 1 && $k.length >= 1 && $f[0].files[0] && $f[0].files) {
                 xp = $k.charCodeAt($k.length-1);
@@ -754,6 +760,7 @@ $(document).ready(function() {
   report = function(i) {
   	 var i = 1,
   	     a = ' ';
+	  
      $('.progress').hide();
      $('.msg1').text('Importing Songs On Pad Was Successfully Completed.');
      for (var i = 0; i < activity.length; i++) {
@@ -781,6 +788,7 @@ $(document).ready(function() {
   })
   
   $(window).keypress(function(e) {
+	  
     if (e.keyCode == Nirik1[1]) {
        $('#key1').click();
     }
@@ -850,6 +858,8 @@ function kpc(input) {
         }
 }
 
+	
+	
 function groupOne(a) {
   if (static1 !== 0) {
     $(static1).removeClass( "red" ); 
@@ -867,6 +877,8 @@ function groupOne(a) {
     $('#'+'key'+a).removeClass( "red" );
   }
 }
+	
+	
 function groupTwo(a) {
   if (static2 !== 0) {
     $(static2).removeClass("orange"); 

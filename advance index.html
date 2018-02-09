@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lunchpad</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap-social.css" rel="stylesheet" >
+    <style type="text/css">
+     *{
+     	margin:0%;
+     	padding:0%;
+     }
+     body{
+     	background: linear-gradient(0deg, #272624 5%, #5d5c5b 12%, #332f2d 85%);
+     }
+     td{
+        height: 80px;
+        width: 80px;
+      }
+      table{
+        margin-top: 10px;
+        border:1px solid white;
+        color: white;
+        float: left;
+      }
+      ul{
+        list-style: none;
+      }
+      li{
+        font-weight: bold;
+      }
+      i{
+        font-size:20px;
+        color: white;
+      }
+      .low_layer{
+        margin-top: 10px;
+        float: left;
+      }
+      .ro_1:hover{
+       background-color: red;
+      }
+      .ro_2:hover{
+       background-color: orange;
+      }
+      .ro_3:hover{
+        background-color:green;
+      }
+      .ro_4:hover{
+       background-color: yellow;
+      }
+      .box_num{
+         font-size: 15px;
+         font-weight: bolder;
+         display: none;
+      }
+      .box{
+	    height: 400px;
+	    width: 100%;
+	    background-color: #eee;
+	    float: right;
+	    margin-top: 10px;
+	    overflow: auto;
+	    box-shadow: 1px 1px 15px 0px whitesmoke;
+	    padding: 20px 20px;
+	    border-radius: 20px;
+      }
+      .a{
+       border:none;
+      }
+      .i1{
+        color: red;
+      }
+      .i2{
+        color:orange;
+      }
+      .i3{
+        color:green;
+      }
+      .i4{
+        color: yellow;
+      }
+      .ro_1,.ro_2,.ro_3,.ro_4{
+        height:90px;
+        width: 90px;
+        background: #484242;
+      }
+      
+      @-webkit-keyframes redd {
+        0% { background-color: red; -webkit-box-shadow: 0 0 3px red; }
+        50% { background-color: red; -webkit-box-shadow: 0 0 30px red; }
+        100% { background-color: ; -webkit-box-shadow: 0 0 3px red; }
+      }
+
+      .red{
+        -webkit-animation: redd 700ms infinite;
+      }
+
+      @-webkit-keyframes orangee {
+        0% { background-color: orange; -webkit-box-shadow: 0 0 3px orange; }
+        50% { background-color: orange; -webkit-box-shadow: 0 0 30px orange; }
+        100% { background-color: ; -webkit-box-shadow: 0 0 3px orange; }
+      }
+
+      .orange{
+        -webkit-animation: orangee 900ms infinite;
+      }
+
+      @-webkit-keyframes greenn {
+        0% { background-color: green; -webkit-box-shadow: 0 0 3px green; }
+        50% { background-color: green; -webkit-box-shadow: 0 0 30px green; }
+        100% { background-color: ; -webkit-box-shadow: 0 0 3px green; }
+      }
+
+      .green{
+        -webkit-animation: greenn 900ms infinite;
+      }
+
+      @-webkit-keyframes yelloww {
+        0% { background-color: yellow; -webkit-box-shadow: 0 0 3px yellow; }
+        50% { background-color: yellow; -webkit-box-shadow: 0 0 30px yellow; }
+        100% { background-color: ; -webkit-box-shadow: 0 0 3px yellow; }
+      }
+
+      .yellow{
+        -webkit-animation: yelloww 900ms infinite;
+      }
+
+
+      @-webkit-keyframes hso {
+          10% {border: 1px solid red;}
+          20% {border: 1px solid orange;}
+          40% {border: 1px solid blue;}
+          50% {border: 1px solid green;}
+          60% {border: 1px solid maroon;}
+      }
+
+      .plak{
+       -webkit-animation: hso 2s infinite;
+        opacity: 0.65; 
+        outline:none;
+      }
+
+      .progress{
+      	  height: 30px;
+		  width: 100%;
+		  margin: 10px 1px;
+		  float: right;
+		  background-color: #eee;
+		  display:none;
+      }
+      .NBprogress{
+	    height: 35px;
+	    background: -o-linear-gradient(red, yellow);
+	    background: -webkit-linear-gradient(120deg,#eee,orange,yellow);
+	    width: 20%;
+	    transition: 1s;
+	    float: left;
+      }
+      .msg{
+      	  font-size: 12px;
+          font-family: monospace;
+          margin-top:10px;
+          color:white;
+      }
+      #coo_music{
+      	color: white;
+      	float: right;
+      	margin: 5px 5px 2px 2px; 
+      }
+
+      .vol_lab{
+      	font-size: 20px;
+      	margin: 2px 100px; 
+      	font-weight: bold;
+      }
+      .vol_1{
+      	color: red;
+      }
+      .vol_2{
+      	color: orange;
+      }
+      .vol_3{
+      	color: green;
+      }
+      .vol_4{
+      	color: yellow;
+      }
+      .vol_main{
+      	color: blue;
+      }
+
+.Players_vol{
+	margin:10px 0px
+	width:100%;
+	height: 50px;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  background: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-ms-track {
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-moz-range-track {
+  height: 5px;
+  background: #ddd;
+  border: none;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #555;
+  margin-top: -5px;
+  position: relative;
+}
+
+input[type=range]::-ms-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #555;
+  margin-top: -5px;
+  position: relative;
+}
+
+input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #555;
+  margin-top: -5px;
+  position: relative;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]:focus::-webkit-slider-thumb:after {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background: #eee;
+  border-radius: 5px;
+  color: #555;
+  padding: 5px 10px;
+  border: 2px solid #555;
+}
+input[type=range]:focus::-ms-thumb:after {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #eee;
+  border-radius: 5px;
+  color: #555;
+  padding: 5px 10px;
+  border: 2px solid #555;
+}
+input[type=range]:focus::-moz-range-thumb:after {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #eee;
+  border-radius: 5px;
+  color: #555;
+  padding: 5px 10px;
+  border: 2px solid #555;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ccc;
+}
+
+input[type=range]:focus::-ms-track {
+  background: #ccc;
+}
+
+input[type=range]:focus::-moz-range-track {
+  background: #ccc;
+}
+    </style>
+</head>
+<body>
+  <div class="col-sm-12">
+     <div class="col-sm-6">
+        <table border="1" color="blue">
+       <tr class="row1">
+         <td class="box1">
+           <button class="ro_1 a" value="1" id="key1"><span class="box_num">1</span></button>
+         </td>
+         <td class="box2">
+            <button class="ro_1 a" value="2" id="key2"><span class="box_num">2</span></button>
+         </td>
+         <td class="box3">
+            <button class="ro_1 a" value="3" id="key3"><span class="box_num">3</span></button>
+         </td>
+         <td class="box4">
+            <button class="ro_1 a" value="4" id="key4"><span class="box_num">4</span></button>
+         </td>
+       </tr>
+       <tr class="row2">
+         <td class="box5 ro_2">
+            <button class="ro_2 a" value="5" id="key5"><span class="box_num">5</span></button>
+         </td>
+         <td class="box6 ro_2">
+            <button class="ro_2 a" value="6" id="key6"><span class="box_num">6</span></button>
+         </td>
+         <td class="box7 ro_2">
+            <button class="ro_2 a" value="7" id="key7"><span class="box_num">7</span></button>
+         </td>
+         <td class="box8 ro_2">
+            <button class="ro_2 a" value="8" id="key8"><span class="box_num">8</span></button>
+         </td>
+       </tr>
+       <tr class="row3">
+         <td class="box9  ro_3">
+            <button class="ro_3 a" value="9" id="key9"><span class="box_num">9</span></button>
+         </td>
+         <td class="box10 ro_3">
+            <button class="ro_3 a" value="10" id="key10"><span class="box_num">10</span></button>
+         </td>
+         <td class="box11 ro_3">
+            <button class="ro_3 a" value="11" id="key11"><span class="box_num">11</span></button>
+         </td>
+         <td class="box12 ro_3"> 
+           <button class="ro_3 a" value="12" id="key12"><span class="box_num">12</span></button>
+         </td>
+       </tr>
+       <tr class="row4">
+         <td class="box13 ro_4">
+            <button class="ro_4 a" value="13" id="key13"><span class="box_num">13</span></button>
+         </td>
+         <td class="box14 ro_4">
+            <button class="ro_4 a" value="14" id="key14"><span class="box_num">14</span></button>
+         </td>
+         <td class="box15 ro_4">
+            <button class="ro_4 a" value="15" id="key15"><span class="box_num">15</span></button>
+         </td>
+         <td class="box16 ro_4">
+            <button class="ro_4 a" value="16" id="key16"><span class="box_num">16</span></button>
+         </td>
+       </tr>
+     </table>
+     <div class="progress">
+     	<div class="NBprogress"></div>
+     </div>
+     <div class="Nirik_screen">
+     	 <span class="msg msg1"></span>
+         <span class="msg msg2"></span>
+     </div>
+     </div>
+
+     <div class="col-sm-6">
+       <div class="low_layer btn-group">
+          <button class="btn btn-success btn-sm play mo">
+          	<i class="glyphicon glyphicon-play" id="plapau"></i>
+          </button>
+          <button class="btn btn-danger  btn-sm add mo">
+          	<i class="glyphicon glyphicon-transfer"></i>
+          </button>
+          <button class="btn btn-success  btn-sm tools mo">
+          	<i class="glyphicon glyphicon-signal"></i>
+          </button>
+          <button class="btn btn-warning  btn-sm balance mo">
+          	<i class="glyphicon glyphicon-tasks"></i>
+          </button>
+          <button class="btn btn-warning  btn-sm status mo">
+          	<i class="glyphicon glyphicon-stats"></i>
+          </button>
+      </div>
+   
+             <input type="file" id="coo_music">
+     
+
+    <div style="display:none;" class="box addbox">
+         <button class="btn btn-primary btn-block btnn_ok">Ok</button>
+         <ul>
+           <li>
+                1:<input type="text" class="form-control col-sm-3" id="inp1" placeholder="Enter a key name..">
+                <label for="fil1">
+                  <i class="glyphocan glyphicon glyphicon-plus i1"></i>
+                  <input type="file" id="fil1" style="display: none;">
+                </label>
+           </li>
+
+           <li>
+                2:<input type="text" class="form-control col-sm-3" id="inp2" placeholder="Enter a key name..">
+                <label for="fil2">
+                  <i class="glyphocan glyphicon glyphicon-plus i1"></i>
+                  <input type="file" id="fil2" class="fil"  style="display: none;" >
+                </label>
+           </li>
+
+           <li>
+                3:<input type="text" class="form-control col-sm-3" id="inp3" placeholder="Enter a key name..">
+                <label for="fil3">
+                  <i class="glyphocan glyphicon glyphicon-plus i1"></i>
+                  <input type="file" id="fil3" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                4:<input type="text" class="form-control col-sm-3" id="inp4" placeholder="Enter a key name..">
+                <label for="fil4">
+                  <i class="glyphocan glyphicon glyphicon-plus i1"></i>
+                  <input type="file" id="fil4" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                5:<input type="text" class="form-control col-sm-3" id="inp5" placeholder="Enter a key name..">
+                <label for="fil5">
+                  <i class="glyphocan glyphicon glyphicon-plus i2"></i>
+                  <input type="file" id="fil5" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                6:<input type="text" class="form-control col-sm-3" id="inp6" placeholder="Enter a key name..">
+                <label for="fil6">
+                  <i class="glyphocan glyphicon glyphicon-plus i2"></i>
+                  <input type="file" id="fil6" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                7:<input type="text" class="form-control col-sm-3" id="inp7" placeholder="Enter a key name..">
+                <label for="fil7">
+                  <i class="glyphocan glyphicon glyphicon-plus i2"></i>
+                  <input type="file" id="fil7" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+
+            <li>
+                8:<input type="text" class="form-control col-sm-3" id="inp8" placeholder="Enter a key name..">
+                <label for="fil8">
+                  <i class="glyphocan glyphicon glyphicon-plus i2"></i>
+                  <input type="file" id="fil8" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+
+            <li>
+                9:<input type="text" class="form-control col-sm-3" id="inp9" placeholder="Enter a key name..">
+                <label for="fil9">
+                  <i class="glyphocan glyphicon glyphicon-plus i3"></i>
+                  <input type="file" id="fil9" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                0:<input type="text" class="form-control col-sm-3" id="inp10" placeholder="Enter a key name..">  
+                <!-- 10-->
+                <label for="fil10">
+                  <i class="glyphocan glyphicon glyphicon-plus i3"></i>
+                  <input type="file" id="fil10" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                a:<input type="text" class="form-control col-sm-3" id="inp11" placeholder="Enter a key name..">
+                <!--11-->
+                <label for="fil11">
+                  <i class="glyphocan glyphicon glyphicon-plus i3"></i>
+                  <input type="file" id="fil11" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                b:<input type="text" class="form-control col-sm-3" id="inp12" placeholder="Enter a key name..">
+                <!--12-->
+                <label for="fil12">
+                  <i class="glyphocan glyphicon glyphicon-plus i3"></i>
+                  <input type="file" id="fil12" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                c:<input type="text" class="form-control col-sm-3" id="inp13" placeholder="Enter a key name..">
+                <!-- 13-->
+                <label for="fil13">
+                  <i class="glyphocan glyphicon glyphicon-plus i4"></i>
+                  <input type="file" id="fil13" class="fil"  style="display: none;"> 
+                </label>
+           </li>
+
+            <li>
+                d:<input type="text" class="form-control col-sm-3" id="inp14" placeholder="Enter a key name..">
+                <!--14-->
+                <label for="fil14">
+                  <i class="glyphocan glyphicon glyphicon-plus i4"></i>
+                  <input type="file" id="fil14" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                e:<input type="text" class="form-control col-sm-3" id="inp15" placeholder="Enter a key name..">
+                <!--15-->
+                <label for="fil15">
+                  <i class="glyphocan glyphicon glyphicon-plus i4"></i>
+                  <input type="file" id="fil15" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+            <li>
+                f:<input type="text" class="form-control col-sm-3" id="inp16" placeholder="Enter a key name..">
+                <!--16-->
+                <label for="fil16">
+                  <i class="glyphocan glyphicon glyphicon-plus i4"></i>
+                  <input type="file" id="fil16" class="fil"  style="display: none;">
+                </label>
+           </li>
+
+
+
+
+
+         </ul>
+    </div>
+      
+    <div class="box toolbox" style="display:none;" >tools</div>
+    <div class="box balancebox" >
+    	
+    	<div class="Players_vol">
+    		<span class="vol_lab vol_main">Main:</span>
+    		<div class="containe">
+			  <input type="range" min="0" max="100" step="1" value="50" id="range_main"/>
+			</div>
+    	</div>
+        
+        <div class="Players_vol">
+        	<span class="vol_lab vol_1">1:</span>
+    		<div class="containe">
+			  <input id="range_one" type="range" min="0" max="100" step="1" value="50"/>
+			</div>
+    	</div>
+
+    	<div class="Players_vol">
+    		<span class="vol_lab vol_2">2:</span>
+    		<div class="containe">
+			  <input type="range"  id="range_two" min="0" max="100" step="1" value="50"/>
+			</div>
+    	</div>
+
+    	<div class="Players_vol">
+    		<span class="vol_lab vol_3">3:</span>
+    		<div class="containe">
+			  <input type="range" min="0" max="100" id="range_three" step="1" value="50"/>
+			</div>
+    	</div>
+
+    	<div class="Players_vol">
+    		<span class="vol_lab vol_4">4:</span>
+    		<div class="containe">
+			  <input type="range" min="0" max="100" id="range_four" step="1" value="50"/>
+			</div>
+    	</div>
+    </div>
+
+     </div>
+
+  
+  </div>
+
+</body>
+<script type="text/javascript">
+      boll = true;
+      player1 = new Audio();
+      player2 = new Audio();
+      player3 = new Audio();
+      player4 = new Audio();
+      player5 = new Audio();
+
+      Nirik1 = [];//key
+      Nirik2 = [];//song with pad id
+  var grpOne = true,
+      grptwo = true,
+      grpthree = true,
+      grpfour = true;
+  var static1 = 0,//static clicks leds
+      static2 = 0,
+      static3 = 0,
+      static4 = 0;
+  var i = 1;
+  var activity = [];
+
+  player1.Volume = 0.5,
+  player2.Volume = 0.5,
+  player3.Volume = 0.5,
+  player4.Volume = 0.5,
+  player5.Volume = 0.5;
+
+
+
+
+  Nirik1[1] = 49;
+  Nirik1[2] = 50;
+  Nirik1[3] = 51;
+  Nirik1[4] = 52;
+  Nirik1[5] = 53;
+  Nirik1[6] = 54;
+  Nirik1[7] = 55;
+  Nirik1[8] = 56;
+  Nirik1[9] = 57;
+  Nirik1[10] = 48; //0
+  Nirik1[11] = 97; //a
+  Nirik1[12] = 98; //b
+  Nirik1[13] = 99; // c
+  Nirik1[14] = 100; // d
+  Nirik1[15] = 101; // e
+  Nirik1[16] = 102; // f
+
+
+
+
+$(document).ready(function() {
+
+  $('.add').click(function() {
+  	$('.balancebox').hide();
+    $('.toolbox').hide();
+    $('.box_num').fadeIn();
+    $('.addbox').show(200);
+  });
+  
+  $('.tools').click(function() {
+  	 $('.box_num').hide();
+	 $('.addbox').hide();
+	 $('.balancebox').hide();
+     $('.toolbox').slideDown(900);
+  });
+
+  $('.balance').click(function() {
+     $('.box_num').hide();
+	 $('.addbox').hide();
+     $('.toolbox').hide();
+     $('.balancebox').slideDown(900);
+  });
+
+ 
+  $("#coo_music").change(function(){
+     kpc(this);
+  });
+
+  $("#range_main").change(function() {
+  	vlM = $(this).val();
+    player1.volume = (vlM*0.01)
+    $('.msg1').text(vlM+'% '+" Main Player Volume.");
+  });
+
+  $("#range_one").change(function() {
+  	vlM = $(this).val();
+    player2.volume = (vlM*0.01)
+    $('.msg1').text(vlM+'% '+" Player One Volume.");
+  });
+
+  $("#range_two").change(function() {
+  	vlM = $(this).val();
+    player3.volume = (vlM*0.01)
+    $('.msg1').text(vlM+'% '+" Player Two Volume.");
+  });
+  
+  $("#range_three").change(function() {
+   	 vlM = $(this).val();
+     player4.volume = (vlM*0.01)
+     $('.msg1').text(vlM+'% '+" Player Three Volume.");
+  });
+  
+  $("#range_four").change(function() {
+  	vlM = $(this).val();
+    player5.volume = (vlM*0.01)
+    $('.msg1').text(vlM+'% '+" Player Four Volume.");
+  });
+  $('.play').click(function() {
+     if (boll) {
+     	boll = !boll;
+        if ($("#coo_music").val().length >= 1) {
+           player1.play(); 
+           $('table').addClass('plak');
+           $('#plapau').removeClass('glyphicon glyphicon-play').addClass('glyphicon glyphicon-pause')
+        }
+     }else{
+     	boll = true;
+     	player1.pause(); 
+        $('table').removeClass('plak');
+        $('#plapau').removeClass('glyphicon glyphicon-pause').addClass('glyphicon glyphicon-play')
+     }
+  });
+  $('.btnn_ok').click(function() {
+  	$('.progress').show()
+    callback();
+  });
+
+
+  callback = function() {
+		if (i <= 16) {
+            activities(i);
+            $('.msg1').text('Working Please Wait.. '+i*6.2+'%');
+			$('.NBprogress').css('width',i*6.2+'%');
+            i = i + 1;
+			setTimeout(callback,1000);
+		} else if(i > 16) {
+			report(i);  
+		}
+  }
+  
+  activities  = function(i) {
+		   $f = $("#"+"fil"+i);///file
+           $k = $("#"+"inp"+i).val();//key
+           if ($f.length >= 1 && $k.length >= 1 && $f[0].files[0] && $f[0].files) {
+                xp = $k.charCodeAt($k.length-1);
+	            Nirik1[i] = xp; 
+		            var reader2 = new FileReader();
+				    reader2.onload = function (e) {
+		                 if (e.target.readyState == 2) {
+		                 	Nirik2[i] =  e.target.result;
+		                 }
+				    };
+		            reader2.readAsDataURL($f[0].files[0]);
+              
+           }else{
+               activity[i] = i;
+               console.log(activity)
+           }
+  }
+
+  report = function(i) {
+  	 var i = 1,
+  	     a = ' ';
+     $('.progress').hide();
+     $('.msg1').text('Importing Songs On Pad Was Successfully Completed.');
+     for (var i = 0; i < activity.length; i++) {
+     	if (activity[i] !== undefined) {
+     		a = activity[i]+' , '+a
+     	}
+     }
+     $('.msg1').show();
+     $('.msg1').text(a+'Pad Are Empty');
+
+  }
+
+
+  $('.a').click(function(){
+    $k = $(this).val();
+    if ($k == 1 || $k == 2 || $k == 3 || $k == 4) { // group 1
+      groupOne($k) 
+    } else if($k == 5 || $k == 6 || $k == 7 || $k == 8){//group 2
+      groupTwo($k)
+    } else if($k == 9 || $k == 10 || $k == 11 || $k == 12){// group 3
+      groupThree($k)  
+    } else if($k == 13 || $k == 14 || $k == 15 || $k == 16){ // group 4
+      groupFour($k)
+    }
+  })
+  
+  $(window).keypress(function(e) {
+    if (e.keyCode == Nirik1[1]) {
+       $('#key1').click();
+    }
+    if (e.keyCode === 0 || e.keyCode === 32) {
+      e.preventDefault()
+      $('.play').click();
+    }
+    if (e.keyCode == Nirik1[2]) {
+       $('#key2').click();
+    }
+    if (e.keyCode == Nirik1[3]) {
+       $('#key3').click();
+    }
+    if (e.keyCode == Nirik1[4]) {
+       $('#key4').click();
+    }
+    if (e.keyCode == Nirik1[5]) {
+       $('#key5').click();
+    }
+    if (e.keyCode == Nirik1[6]) {
+       $('#key6').click();
+    }
+    if (e.keyCode == Nirik1[7]) {
+       $('#key7').click();
+    }
+    if (e.keyCode == Nirik1[8]) {
+       $('#key8').click();
+    }
+    if (e.keyCode == Nirik1[9]) {
+       $('#key9').click();
+    }
+    if (e.keyCode == Nirik1[10]) {
+       $('#key10').click();
+    }
+    if (e.keyCode == Nirik1[11]) {
+       $('#key11').click();
+    }
+    if (e.keyCode == Nirik1[12]) {
+       $('#key12').click();
+    }
+    if (e.keyCode == Nirik1[13]) {
+       $('#key13').click();
+    }
+    if (e.keyCode == Nirik1[14]) {
+       $('#key14').click();
+    }
+    if (e.keyCode == Nirik1[15]) {
+       $('#key15').click();
+    }
+    if (e.keyCode == Nirik1[16]) {
+       $('#key16').click();
+    }
+  });
+  
+
+
+
+})
+
+function kpc(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                 player1.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+}
+
+function groupOne(a) {
+  if (static1 !== 0) {
+    $(static1).removeClass( "red" ); 
+  }
+  if(grpOne) {
+    grpOne = !grpOne;
+    gp1 = '#'+'key'+a;
+    $(gp1).addClass( "red" );
+    static1 = gp1
+    player2.src = Nirik2[a];
+    player2.play();
+  } else {
+    grpOne = true;
+     player2.pause();
+    $('#'+'key'+a).removeClass( "red" );
+  }
+}
+function groupTwo(a) {
+  if (static2 !== 0) {
+    $(static2).removeClass("orange"); 
+  }
+  if (grptwo) {
+    grptwo= !grptwo;
+    gp2 = '#'+'key'+a; 
+    $(gp2).addClass("orange");
+    static2 = gp2;
+    player3.src = Nirik2[a];
+    player3.play();
+  }else{
+  	player3.pause()
+    grptwo = true;
+     $('#'+'key'+a).removeClass("orange");
+  }
+}
+function groupThree(a) {
+  if (static3 !== 0) {
+    $(static3).removeClass("green"); 
+  }
+  if (grpthree) {
+    grpthree = !grpthree;
+    gp3 ='#'+'key'+a 
+    $(gp3).addClass("green");
+    static3 = gp3;
+    player4.src = Nirik2[a];
+    player4.play();
+  }else{
+  	player4.pause();
+    grpthree = true;
+    $('#'+'key'+a).removeClass("green");
+  }
+}
+function groupFour(a) {
+  if (static4 !== 0 ) {
+    $(static4).removeClass("yellow"); 
+  }
+   if(grpfour){
+     grpfour = !grpfour;
+     gp4 = '#'+'key'+a; 
+     $(gp4).addClass("yellow");
+     static4 = gp4;
+     player5.src = Nirik2[a];
+     player5.play();
+   }else {
+   	player5.pause();
+     grpfour = true;
+     $('#'+'key'+a).removeClass("yellow");
+   }
+
+}
+
+</script>
+</html>
